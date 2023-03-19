@@ -16,11 +16,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="eLr-Qo-vGQ">
-                                <rect key="frame" x="127" y="289.5" width="121" height="88"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="ySr-eg-jna">
+                                <rect key="frame" x="129.5" y="289.5" width="116.5" height="88.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Xj8-tt-YCI">
-                                        <rect key="frame" x="0.0" y="0.0" width="121" height="20.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="FNz-CX-Eve">
+                                        <rect key="frame" x="0.0" y="0.0" width="116.5" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r3n-lv-Hbu">
                                                 <rect key="frame" x="0.0" y="0.0" width="68" height="20.5"/>
@@ -29,15 +29,19 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FB-m2-VIu">
-                                                <rect key="frame" x="76" y="0.0" width="45" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <rect key="frame" x="69" y="0.0" width="47.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeN-Ni-I6q">
-                                        <rect key="frame" x="18" y="53.5" width="85" height="34.5"/>
+                                        <rect key="frame" x="8" y="38.5" width="100" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="BAU-GD-2RP"/>
+                                            <constraint firstAttribute="height" constant="50" id="ab0-K2-mD5"/>
+                                        </constraints>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Log Out">
                                             <color key="baseBackgroundColor" systemColor="systemPinkColor"/>
@@ -52,8 +56,8 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="eLr-Qo-vGQ" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="REP-Ft-K78"/>
-                            <constraint firstItem="eLr-Qo-vGQ" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="vMR-iS-rH7"/>
+                            <constraint firstItem="ySr-eg-jna" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="22t-sv-dlv"/>
+                            <constraint firstItem="ySr-eg-jna" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="5lv-MW-K4d"/>
                         </constraints>
                     </view>
                     <connections>

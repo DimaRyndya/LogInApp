@@ -22,6 +22,9 @@ final class ArticlesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
+        tableView.backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
+
         var nib = UINib(nibName: ArticleTableViewCell.nibName, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: ArticleTableViewCell.identifier)
         nib = UINib(nibName: LoadingCellConstants.nibName, bundle: nil)

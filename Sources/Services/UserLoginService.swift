@@ -9,7 +9,7 @@ class UserLoginService {
         keyChain.getBool("isLoggedIn") ?? false
     }
 
-    func save(userName: String, password: String) {
+    func saveChache(userName: String, password: String) {
         keyChain.set(userName, forKey: "username")
         keyChain.set(password, forKey: "password")
         keyChain.set(true, forKey: "isLoggedIn")

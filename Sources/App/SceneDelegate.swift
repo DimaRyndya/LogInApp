@@ -17,11 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if loginService.isUserLoggedIn {
             let tabBarVC = rootVCBuilder.buildTabBarViewController(loginService: loginService)
-//            rootVCBuilder.buildLoginViewController(loginService: loginService)
             window.rootViewController = tabBarVC
         } else {
             let loginVC = rootVCBuilder.buildLoginViewController(loginService: loginService)
-//            window.rootViewController = rootVCBuilder.navigationController
             window.rootViewController = loginVC
         }
         self.window = window

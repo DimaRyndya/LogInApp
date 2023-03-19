@@ -10,18 +10,33 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var userPasswordTextField: UITextField!
     @IBOutlet weak var checkBoxButtonLabel: UIButton!
     @IBOutlet weak var loginButtonLabel: UIButton!
-    @IBOutlet weak var privacyLabel: UILabel!
+    @IBOutlet weak var privacyLabel: UITextView!
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+
+        view.backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
+
         privacyLabel.attributedText = getLinkFromText(text: privacyLabel.text!)
         privacyLabel.isUserInteractionEnabled = true
 
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
+
+        userNameTextField.attributedPlaceholder = NSAttributedString(string: userNameTextField.placeholder!, attributes: attributes)
+        userPasswordTextField.attributedPlaceholder = NSAttributedString(string: userPasswordTextField.placeholder!, attributes: attributes)
+
+        privacyLabel.delegate = self
+        userNameTextField.delegate = self
+        userPasswordTextField.delegate = self
         checkBoxButtonLabel.isSelected = false
         loginButtonLabel.isEnabled = false
+
     }
 
     // MARK: - IBAction methods
@@ -29,11 +44,11 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonTapped(_ sender: Any) {
         guard let userName = userNameTextField.text, let password = userPasswordTextField.text else { return }
         
-        viewModel.loginService.save(userName: userName, password: password)
+        viewModel.loginService.saveChache(userName: userName, password: password)
 
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
             let tabBarVC = sceneDelegate.rootVCBuilder.buildTabBarViewController(loginService: viewModel.loginService)
-            UIView.transition(with: sceneDelegate.window ?? UIWindow(), duration: 0.5, options: [.transitionCrossDissolve], animations: {
+            UIView.transition(with: sceneDelegate.window ?? UIWindow(), duration: 0.5, options: [.transitionCurlDown], animations: {
                 sceneDelegate.window?.rootViewController = tabBarVC
             }, completion: nil)
         }
@@ -56,46 +71,70 @@ class LoginViewController: UIViewController {
 
     func getLinkFromText(text: String) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: text)
-        let privacyRange = (text as NSString).range(of: "Privacy Policy")
+        let privacyRange = (attributedString.string as NSString).range(of: "Privacy Policy")
         let linkAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.blue, .underlineStyle: NSUnderlineStyle.single.rawValue]
         attributedString.addAttributes(linkAttributes, range: privacyRange)
         let url = URL(string: "https://redwing-studio.com/")
         attributedString.addAttribute(.link, value: url as Any, range: privacyRange)
 
-        // Add tap gesture recognizer to label
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(labelTapped(_:)))
-        privacyLabel.addGestureRecognizer(tapGestureRecognizer)
-        privacyLabel.isUserInteractionEnabled = true
-
-        // Store the range in a custom property of the tap gesture recognizer
-        tapGestureRecognizer.privacyRange = privacyRange
+        privacyLabel.attributedText = attributedString
 
         return attributedString
     }
 
-    @objc func labelTapped(_ sender: UITapGestureRecognizer) {
-        guard let attributedString = privacyLabel.attributedText else { return }
+    @objc func handleTap() {
+        view.endEditing(true)
+    }
+}
 
-        let tapLocation = sender.location(in: privacyLabel)
+    // MARK: - UIText View Delegate methods
 
-        // Get the bounding rectangle of the text
-        let textBoundingBox = attributedString.boundingRect(with: privacyLabel.bounds.size, options: .usesLineFragmentOrigin, context: nil)
+extension LoginViewController: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        UIApplication.shared.open(URL)
+            return false
+    }
+}
 
-        // Create a text container and layout manager for the attributed string
-        let textContainer = NSTextContainer(size: privacyLabel.bounds.size)
-        let layoutManager = NSLayoutManager()
-        layoutManager.addTextContainer(textContainer)
-        let textStorage = NSTextStorage(attributedString: attributedString)
-        textStorage.addLayoutManager(layoutManager)
+    // MARK: - UIText Field Delegate methods
 
-        // Find the character index of the tap location
-        let characterIndex = layoutManager.characterIndex(for: tapLocation, in: textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+extension LoginViewController: UITextFieldDelegate {
 
-        // Check if the tap was within the privacy range
-        if (attributedString.string as NSString).range(of: "Privacy Policy").contains(characterIndex) {
-            if let url = URL(string: "https://redwing-studio.com/") {
-                UIApplication.shared.open(url)
-            }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard textField == userNameTextField || textField == userPasswordTextField else { return }
+        guard let text = textField.text else { return }
+
+        if textField == userNameTextField {
+            validateUsername(text)
+        } else {
+            validatePassword(text)
         }
     }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        userNameTextField.resignFirstResponder()
+        userPasswordTextField.resignFirstResponder()
+        return true
+    }
+
+    // MARK: - Validation methods
+
+        func validateUsername(_ username: String) {
+            guard let userName = userNameTextField.text else { return }
+
+            if userName.count < 6 {
+                print("Username must be at least 6 characters long")
+            }
+        }
+
+        func validatePassword(_ password: String) {
+            guard let password = userPasswordTextField.text else { return }
+
+            let passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$"
+            let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+
+            if !passwordPredicate.evaluate(with: password) {
+                print("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit")
+            }
+        }
 }

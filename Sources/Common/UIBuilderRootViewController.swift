@@ -2,8 +2,6 @@ import UIKit
 
 final class UIBuilderRootViewController {
 
-//    let navigationController = UIStoryboard(name: ArticlesTableViewController.storybordIdentifier, bundle: nil).instantiateInitialViewController() as? UINavigationController
-
     // MARK: - Public
 
     func buildTabBarViewController(loginService: UserLoginService) -> UITabBarController {
@@ -45,8 +43,6 @@ final class UIBuilderRootViewController {
     }
 
     func buildLoginViewController(loginService: UserLoginService) -> LoginViewController {
-//        navigationController?.navigationBar.isHidden = true
-//        let loginVC = navigationController?.viewControllers.first as? LoginViewController
         let loginVC = UIStoryboard(name: ArticlesTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Login") as! LoginViewController
         let loginViewModel = LoginViewModel(loginService: loginService)
 
@@ -55,4 +51,3 @@ final class UIBuilderRootViewController {
         return loginVC
     }
 }
-
