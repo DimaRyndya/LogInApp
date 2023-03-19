@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArticleCell" id="i2v-YQ-gOT" customClass="ArticleTableViewCell" customModule="LogInApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="i2v-YQ-gOT" id="JSx-uS-n8D">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="wrN-Hq-6jp">
+                        <rect key="frame" x="16" y="5.0000000000000018" width="343" height="30.666666666666671"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yh-VF-feE">
+                                <rect key="frame" x="0.0" y="0.0" width="343" height="14.333333333333334"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XrK-Nl-bWn">
+                                <rect key="frame" x="0.0" y="17.333333333333332" width="343" height="13.333333333333332"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="wrN-Hq-6jp" secondAttribute="trailing" constant="16" id="Cmr-jo-BDS"/>
+                    <constraint firstAttribute="bottom" secondItem="wrN-Hq-6jp" secondAttribute="bottom" constant="8.3300000000000001" id="I9R-oX-QyG"/>
+                    <constraint firstItem="wrN-Hq-6jp" firstAttribute="top" secondItem="JSx-uS-n8D" secondAttribute="top" constant="5" id="R6S-aS-xXL"/>
+                    <constraint firstItem="wrN-Hq-6jp" firstAttribute="leading" secondItem="JSx-uS-n8D" secondAttribute="leading" constant="16" id="TEa-oA-bJM"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="AMw-pe-uXy"/>
+            <connections>
+                <outlet property="articleTextLabel" destination="XrK-Nl-bWn" id="Tgk-YH-voz"/>
+                <outlet property="articleTitleLabel" destination="5yh-VF-feE" id="BAT-1e-XN7"/>
+            </connections>
+            <point key="canvasLocation" x="234" y="-29"/>
+        </tableViewCell>
+    </objects>
+</document>
