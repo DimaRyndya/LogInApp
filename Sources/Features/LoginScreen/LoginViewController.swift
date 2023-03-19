@@ -11,6 +11,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var checkBoxButtonLabel: UIButton!
     @IBOutlet weak var loginButtonLabel: UIButton!
     @IBOutlet weak var privacyLabel: UITextView!
+    @IBOutlet weak var userNameValidationLabel: UILabel!
+    @IBOutlet weak var userPasswordValidationLabel: UILabel!
 
     // MARK: - Lifecycle
 
@@ -25,6 +27,8 @@ class LoginViewController: UIViewController {
 
         privacyLabel.attributedText = getLinkFromText(text: privacyLabel.text!)
         privacyLabel.isUserInteractionEnabled = true
+        userNameValidationLabel.isHidden = false
+        userPasswordValidationLabel.isHidden = false
 
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
 
@@ -100,15 +104,26 @@ extension LoginViewController: UITextViewDelegate {
 
 extension LoginViewController: UITextFieldDelegate {
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard textField == userNameTextField || textField == userPasswordTextField else { return }
-        guard let text = textField.text else { return }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let currentText = textField.text,
+                let range = Range(range, in: currentText) else { return false }
+        
+            let updatedText = currentText.replacingCharacters(in: range, with: string)
 
         if textField == userNameTextField {
-            validateUsername(text)
+            validateUsername(updatedText)
         } else {
-            validatePassword(text)
+            validatePassword(updatedText)
         }
+
+        if textField.isSecureTextEntry {
+                textField.isSecureTextEntry = false
+                textField.text?.replaceSubrange(range, with: string)
+                textField.isSecureTextEntry = true
+                return false
+            } else {
+                return true
+            }
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -120,21 +135,24 @@ extension LoginViewController: UITextFieldDelegate {
     // MARK: - Validation methods
 
         func validateUsername(_ username: String) {
-            guard let userName = userNameTextField.text else { return }
 
-            if userName.count < 6 {
-                print("Username must be at least 6 characters long")
+            if username.count < 6 {
+          // Username must be at least 6 characters long
+                userNameValidationLabel.isHidden = false
+            } else {
+                userNameValidationLabel.isHidden = true
             }
         }
 
         func validatePassword(_ password: String) {
-            guard let password = userPasswordTextField.text else { return }
-
+            // Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit
             let passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$"
             let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
 
             if !passwordPredicate.evaluate(with: password) {
-                print("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit")
+                userPasswordValidationLabel.isHidden = false
+            } else {
+                userPasswordValidationLabel.isHidden = true
             }
         }
 }

@@ -17,18 +17,6 @@ class ProfileViewController: UIViewController {
     }
 
     @IBAction func logOutDidTapped(_ sender: Any) {
-//        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate, let loginVC = sceneDelegate.rootVCBuilder.navigationController?.viewControllers.first as? LoginViewController, let navController = sceneDelegate.rootVCBuilder.navigationController {
-//
-////            loginVC.userNameTextField.text = nil
-////            loginVC.userPasswordTextField.text = nil
-////            loginVC.checkBoxButtonLabel.isSelected = false
-////            loginVC.loginButtonLabel.isEnabled = false
-////            loginVC.checkBoxButtonLabel.setImage(UIImage(systemName: "square"), for: .normal)
-//
-//            sceneDelegate.window?.rootViewController = navController
-//
-//            navController.popToViewController(loginVC, animated: true)
-//        }
 
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
             let loginVC = sceneDelegate.rootVCBuilder.buildLoginViewController(loginService: viewModel.loginService)
