@@ -50,16 +50,13 @@ class LoginViewController: UIViewController {
         
         viewModel.loginService.saveChache(userName: userName, password: password)
 
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            let tabBarVC = sceneDelegate.rootVCBuilder.buildTabBarViewController(loginService: viewModel.loginService)
-            UIView.transition(with: sceneDelegate.window ?? UIWindow(), duration: 0.5, options: [.transitionCurlDown], animations: {
-                sceneDelegate.window?.rootViewController = tabBarVC
-            }, completion: nil)
-        }
+        viewModel.loginButtonTapped()
     }
 
     @IBAction func checkBoxButtonTapped(_ sender: Any) {
         checkBoxButtonLabel.isSelected = !checkBoxButtonLabel.isSelected
+
+        // TODO: Refactor
 
         if checkBoxButtonLabel.isSelected {
             checkBoxButtonLabel.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
@@ -86,11 +83,8 @@ class LoginViewController: UIViewController {
     }
 
     func checkLoginButtonState() {
-        if checkBoxButtonLabel.isSelected, userNameValidationLabel.isHidden, userPasswordValidationLabel.isHidden {
-            loginButtonLabel.isEnabled = true
-        } else {
-            loginButtonLabel.isEnabled = false
-        }
+        let shouldEnableLoginButton = checkBoxButtonLabel.isSelected && userNameValidationLabel.isHidden && userPasswordValidationLabel.isHidden
+        loginButtonLabel.isEnabled = shouldEnableLoginButton
     }
 
     @objc func handleTap() {
@@ -142,28 +136,18 @@ extension LoginViewController: UITextFieldDelegate {
     // MARK: - Validation methods
 
     func validateUsername(_ username: String) {
-
-        if username.count < 6 {
-            // Username must be at least 6 characters long
-            userNameValidationLabel.isHidden = false
-            checkLoginButtonState()
-        } else {
-            userNameValidationLabel.isHidden = true
-            checkLoginButtonState()
-        }
+        let shouldHideHint = username.count >= 6
+        userNameValidationLabel.isHidden = shouldHideHint
+        checkLoginButtonState()
     }
 
     func validatePassword(_ password: String) {
         // Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit
         let passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$"
         let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+        let shouldHidePasswordHint = passwordPredicate.evaluate(with: password)
 
-        if !passwordPredicate.evaluate(with: password) {
-            userPasswordValidationLabel.isHidden = false
-            checkLoginButtonState()
-        } else {
-            userPasswordValidationLabel.isHidden = true
-            checkLoginButtonState()
-        }
+        userPasswordValidationLabel.isHidden = shouldHidePasswordHint
+        checkLoginButtonState()
     }
 }

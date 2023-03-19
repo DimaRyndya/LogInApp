@@ -4,7 +4,7 @@ final class UIBuilderRootViewController {
 
     // MARK: - Public
 
-    func buildTabBarViewController(loginService: UserLoginService) -> UITabBarController {
+    func buildTabBarViewController(loginService: UserLoginService, coordinator: AppCoordinator) -> UITabBarController {
 
         // MARK: - Set up News Screen
 
@@ -18,7 +18,7 @@ final class UIBuilderRootViewController {
         // MARK: - Set up Profile Screen
 
         let profileVC = UIStoryboard(name: ProfileViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Profile") as? ProfileViewController
-        let profileViewModel = ProfileViewModel(loginService: loginService)
+        let profileViewModel = ProfileViewModel(loginService: loginService, appCoordinator: coordinator)
 
         profileVC?.viewModel = profileViewModel
 
@@ -42,9 +42,9 @@ final class UIBuilderRootViewController {
         return tabBarVC
     }
 
-    func buildLoginViewController(loginService: UserLoginService) -> LoginViewController {
+    func buildLoginViewController(loginService: UserLoginService, coordinator: AppCoordinator) -> LoginViewController {
         let loginVC = UIStoryboard(name: NewsTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Login") as! LoginViewController
-        let loginViewModel = LoginViewModel(loginService: loginService)
+        let loginViewModel = LoginViewModel(loginService: loginService, appCoordinator: coordinator)
 
         loginVC.viewModel = loginViewModel
 

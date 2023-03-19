@@ -17,14 +17,7 @@ class ProfileViewController: UIViewController {
     }
 
     @IBAction func logOutDidTapped(_ sender: Any) {
-
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            let loginVC = sceneDelegate.rootVCBuilder.buildLoginViewController(loginService: viewModel.loginService)
-            UIView.transition(with: sceneDelegate.window ?? UIWindow(), duration: 0.5, options: [.transitionCurlDown], animations: {
-                sceneDelegate.window?.rootViewController = loginVC
-            }, completion: nil)
-        }
-        
         viewModel.loginService.deleteCache()
+        viewModel.logoutButtonTapped()
     }
 }

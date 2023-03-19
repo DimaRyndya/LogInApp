@@ -4,9 +4,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Properties
 
-    var window: UIWindow?
-    let rootVCBuilder = UIBuilderRootViewController()
-    let loginService = UserLoginService()
+    var appCoordinator: AppCoordinator?
 
     // MARK: - Application lifecycle
 
@@ -14,15 +12,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
+        let rootVCBuilder = UIBuilderRootViewController()
+        let loginService = UserLoginService()
+
+        appCoordinator = AppCoordinator(window: window, rootVCBuilder: rootVCBuilder, loginService: loginService)
 
         if loginService.isUserLoggedIn {
-            let tabBarVC = rootVCBuilder.buildTabBarViewController(loginService: loginService)
-            window.rootViewController = tabBarVC
+            appCoordinator?.startMainFlow(animated: false)
         } else {
-            let loginVC = rootVCBuilder.buildLoginViewController(loginService: loginService)
-            window.rootViewController = loginVC
+            appCoordinator?.startLoginFlow(animated: false)
         }
-        self.window = window
+
         window.makeKeyAndVisible()
     }
 }
