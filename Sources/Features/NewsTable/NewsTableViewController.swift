@@ -8,13 +8,13 @@ private enum LoadingCellConstants {
     static let spinnerTag = 100
 }
 
-final class ArticlesTableViewController: UITableViewController {
+final class NewsTableViewController: UITableViewController {
 
     //MARK: - Properties
 
-    var viewModel: ArticlesViewModel!
+    var viewModel: NewsViewModel!
 
-    static let storybordIdentifier = "ArticlesStoryboard"
+    static let storybordIdentifier = "NewsStoryboard"
     static let tableViewRowHeight = 44.0
 
     //MARK: - Lifecycle
@@ -25,12 +25,12 @@ final class ArticlesTableViewController: UITableViewController {
         view.backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
         tableView.backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
 
-        var nib = UINib(nibName: ArticleTableViewCell.nibName, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: ArticleTableViewCell.identifier)
+        var nib = UINib(nibName: NewsTableViewCell.nibName, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: NewsTableViewCell.identifier)
         nib = UINib(nibName: LoadingCellConstants.nibName, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: LoadingCellConstants.identifier)
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = ArticlesTableViewController.tableViewRowHeight
+        tableView.estimatedRowHeight = NewsTableViewController.tableViewRowHeight
 
         viewModel.delegate = self
         viewModel.loadArticles()
@@ -44,8 +44,8 @@ final class ArticlesTableViewController: UITableViewController {
 
 //MARK: - MostEmailed ViewModel Delegate
 
-extension ArticlesTableViewController: ArticlesViewModelDelegate {
-    func reloadUI(_ viewModel: ArticlesViewModel) {
+extension NewsTableViewController: NewsViewModelDelegate {
+    func reloadUI(_ viewModel: NewsViewModel) {
         viewModel.state = .foundArticles
         tableView.reloadData()
     }
@@ -54,7 +54,7 @@ extension ArticlesTableViewController: ArticlesViewModelDelegate {
 
 // MARK: - Table view data source
 
-extension ArticlesTableViewController {
+extension NewsTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch viewModel.state {
@@ -77,7 +77,7 @@ extension ArticlesTableViewController {
             return cell
 
         case .foundArticles:
-            let cell = tableView.dequeueReusableCell(withIdentifier: ArticleTableViewCell.identifier, for: indexPath) as! ArticleTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as! NewsTableViewCell
             let article = viewModel.articles[indexPath.row]
 
             tableView.separatorStyle = .singleLine

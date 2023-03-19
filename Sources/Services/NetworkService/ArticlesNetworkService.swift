@@ -17,7 +17,7 @@ final class ArticlesNetworkService {
 
     //MARK: - Public
 
-    func fetchArticles(completion: @escaping ([ArticleModel]) -> ()) {
+    func fetchArticles(completion: @escaping ([NewsModel]) -> ()) {
         AF.request(baseURL + requestURL, parameters: parameters).responseDecodable(of: ArticleRequestResponse.self) { response in
             switch response.result {
             case .success(let result):

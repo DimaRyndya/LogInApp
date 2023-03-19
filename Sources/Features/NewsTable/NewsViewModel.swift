@@ -1,30 +1,32 @@
 import UIKit
 
-protocol ArticlesViewModelDelegate: AnyObject {
-    func reloadUI(_ viewModel: ArticlesViewModel)
+protocol NewsViewModelDelegate: AnyObject {
+    func reloadUI(_ viewModel: NewsViewModel)
 }
 
-final class ArticlesViewModel {
+final class NewsViewModel {
 
     enum State {
         case loading
         case foundArticles
     }
 
-    //MARK: - Properties
+    // MARK: - Properties
 
     var state: State = .loading
-    var articles: [ArticleModel] = []
+    var articles: [NewsModel] = []
 
     private let networkService: ArticlesNetworkService
 
-    weak var delegate: ArticlesViewModelDelegate?
+    weak var delegate: NewsViewModelDelegate?
 
-    //MARK: - Init
+    // MARK: - Init
 
     init(networkService: ArticlesNetworkService) {
         self.networkService = networkService
     }
+
+    // MARK: - Public
 
     func loadArticles() {
         networkService.fetchArticles { [weak self] response in

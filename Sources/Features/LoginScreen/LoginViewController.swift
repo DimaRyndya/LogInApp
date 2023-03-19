@@ -98,24 +98,24 @@ class LoginViewController: UIViewController {
     }
 }
 
-    // MARK: - UIText View Delegate methods
+// MARK: - UIText View Delegate methods
 
 extension LoginViewController: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         UIApplication.shared.open(URL)
-            return false
+        return false
     }
 }
 
-    // MARK: - UIText Field Delegate methods
+// MARK: - UIText Field Delegate methods
 
 extension LoginViewController: UITextFieldDelegate {
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let currentText = textField.text,
-                let range = Range(range, in: currentText) else { return false }
+              let range = Range(range, in: currentText) else { return false }
 
-            let updatedText = currentText.replacingCharacters(in: range, with: string)
+        let updatedText = currentText.replacingCharacters(in: range, with: string)
 
         if textField == userNameTextField {
             validateUsername(updatedText)
@@ -124,13 +124,13 @@ extension LoginViewController: UITextFieldDelegate {
         }
 
         if textField.isSecureTextEntry {
-                textField.isSecureTextEntry = false
-                textField.text?.replaceSubrange(range, with: string)
-                textField.isSecureTextEntry = true
-                return false
-            } else {
-                return true
-            }
+            textField.isSecureTextEntry = false
+            textField.text?.replaceSubrange(range, with: string)
+            textField.isSecureTextEntry = true
+            return false
+        } else {
+            return true
+        }
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -141,29 +141,29 @@ extension LoginViewController: UITextFieldDelegate {
 
     // MARK: - Validation methods
 
-        func validateUsername(_ username: String) {
+    func validateUsername(_ username: String) {
 
-            if username.count < 6 {
-          // Username must be at least 6 characters long
-                userNameValidationLabel.isHidden = false
-                checkLoginButtonState()
-            } else {
-                userNameValidationLabel.isHidden = true
-                checkLoginButtonState()
-            }
+        if username.count < 6 {
+            // Username must be at least 6 characters long
+            userNameValidationLabel.isHidden = false
+            checkLoginButtonState()
+        } else {
+            userNameValidationLabel.isHidden = true
+            checkLoginButtonState()
         }
+    }
 
-        func validatePassword(_ password: String) {
-            // Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit
-            let passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$"
-            let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
+    func validatePassword(_ password: String) {
+        // Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit
+        let passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$"
+        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
 
-            if !passwordPredicate.evaluate(with: password) {
-                userPasswordValidationLabel.isHidden = false
-                checkLoginButtonState()
-            } else {
-                userPasswordValidationLabel.isHidden = true
-                checkLoginButtonState()
-            }
+        if !passwordPredicate.evaluate(with: password) {
+            userPasswordValidationLabel.isHidden = false
+            checkLoginButtonState()
+        } else {
+            userPasswordValidationLabel.isHidden = true
+            checkLoginButtonState()
         }
+    }
 }

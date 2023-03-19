@@ -24,9 +24,7 @@ class ProfileViewController: UIViewController {
                 sceneDelegate.window?.rootViewController = loginVC
             }, completion: nil)
         }
-
+        
         viewModel.loginService.deleteCache()
     }
-
 }
-

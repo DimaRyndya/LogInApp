@@ -1,4 +1,4 @@
-final class ArticleModel {
+final class NewsModel {
 
     let title: String
     let description: String
@@ -13,7 +13,7 @@ final class ArticleModel {
 
 //MARK: - Helper Types
 
-extension ArticleModel: Decodable {
+extension NewsModel: Decodable {
 
     enum CodingKeys: String, CodingKey {
         case title

@@ -138,10 +138,10 @@
             </objects>
             <point key="canvasLocation" x="476" y="-30.134932533733135"/>
         </scene>
-        <!--Articles Table View Controller-->
+        <!--News Table View Controller-->
         <scene sceneID="6Co-Le-2pC">
             <objects>
-                <tableViewController storyboardIdentifier="ArticlesTableView" id="qKx-el-ml8" customClass="ArticlesTableViewController" customModule="LogInApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NewsTableView" id="qKx-el-ml8" customClass="NewsTableViewController" customModule="LogInApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ArticlesStoryboard" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="mjl-5D-lX1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

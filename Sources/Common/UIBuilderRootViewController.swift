@@ -8,10 +8,10 @@ final class UIBuilderRootViewController {
 
         // MARK: - Set up News Screen
 
-        let newsVC = UIStoryboard(name: ArticlesTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "ArticlesTableView") as? ArticlesTableViewController
+        let newsVC = UIStoryboard(name: NewsTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "NewsTableView") as? NewsTableViewController
         let newsURL = "/svc/mostpopular/v2/emailed/30.json"
         let newsNetworkService = ArticlesNetworkService(requestURL: newsURL)
-        let newsViewModel = ArticlesViewModel(networkService: newsNetworkService)
+        let newsViewModel = NewsViewModel(networkService: newsNetworkService)
 
         newsVC?.viewModel = newsViewModel
 
@@ -28,7 +28,7 @@ final class UIBuilderRootViewController {
         tabBarVC.setViewControllers([newsVC ?? UIViewController(), profileVC ?? UIViewController()], animated: false)
 
         if let newsItem = tabBarVC.tabBar.items?[0] {
-            newsItem.title = "News"
+            newsItem.title = "Popular News"
             newsItem.image = UIImage(systemName: "envelope.circle")
             newsItem.selectedImage = UIImage(systemName: "envelope.circle.fill")
         }
@@ -43,7 +43,7 @@ final class UIBuilderRootViewController {
     }
 
     func buildLoginViewController(loginService: UserLoginService) -> LoginViewController {
-        let loginVC = UIStoryboard(name: ArticlesTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Login") as! LoginViewController
+        let loginVC = UIStoryboard(name: NewsTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Login") as! LoginViewController
         let loginViewModel = LoginViewModel(loginService: loginService)
 
         loginVC.viewModel = loginViewModel
