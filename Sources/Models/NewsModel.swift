@@ -1,9 +1,11 @@
 final class NewsModel {
 
+    // MARK: - Properties
+
     let title: String
     let description: String
 
-    //MARK: - Init
+    // MARK: - Init
 
     init(title: String, description: String) {
         self.title = title
@@ -11,7 +13,7 @@ final class NewsModel {
     }
 }
 
-//MARK: - Helper Types
+// MARK: - Helper Types
 
 extension NewsModel: Decodable {
 

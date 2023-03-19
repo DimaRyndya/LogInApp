@@ -16,13 +16,13 @@ final class NewsViewModel {
     var state: State = .loading
     var articles: [NewsModel] = []
 
-    private let networkService: ArticlesNetworkService
+    private let networkService: NewsNetworkService
 
     weak var delegate: NewsViewModelDelegate?
 
     // MARK: - Init
 
-    init(networkService: ArticlesNetworkService) {
+    init(networkService: NewsNetworkService) {
         self.networkService = networkService
     }
 

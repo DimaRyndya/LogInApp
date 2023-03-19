@@ -8,5 +8,5 @@ struct ArticleRequestResponse: Decodable {
 
     //MARK: - Properties
 
-    var articles: [NewsModel] = []
+   var articles: [NewsModel] = []
 }

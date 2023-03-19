@@ -10,14 +10,14 @@ private enum LoadingCellConstants {
 
 final class NewsTableViewController: UITableViewController {
 
-    //MARK: - Properties
+    // MARK: - Properties
 
     var viewModel: NewsViewModel!
 
     static let storybordIdentifier = "NewsStoryboard"
     static let tableViewRowHeight = 44.0
 
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +86,12 @@ extension NewsTableViewController {
             return cell
         }
     }
+}
 
+// MARK: - Table view delegate methods
+
+extension NewsTableViewController {
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }

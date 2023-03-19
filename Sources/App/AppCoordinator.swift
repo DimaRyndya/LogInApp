@@ -6,11 +6,15 @@ final class AppCoordinator {
     private let rootVCBuilder: UIBuilderRootViewController
     private let loginService: UserLoginService
 
+    // MARK: - Init
+
     init(window: UIWindow, rootVCBuilder: UIBuilderRootViewController, loginService: UserLoginService) {
         self.window = window
         self.rootVCBuilder = rootVCBuilder
         self.loginService = loginService
     }
+
+    // MARK: - Public
 
     func startLoginFlow(animated: Bool) {
         let loginVC = rootVCBuilder.buildLoginViewController(loginService: loginService, coordinator: self)

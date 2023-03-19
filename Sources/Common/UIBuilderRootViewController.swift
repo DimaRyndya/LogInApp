@@ -10,7 +10,7 @@ final class UIBuilderRootViewController {
 
         let newsVC = UIStoryboard(name: NewsTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "NewsTableView") as? NewsTableViewController
         let newsURL = "/svc/mostpopular/v2/emailed/30.json"
-        let newsNetworkService = ArticlesNetworkService(requestURL: newsURL)
+        let newsNetworkService = NewsNetworkService(requestURL: newsURL)
         let newsViewModel = NewsViewModel(networkService: newsNetworkService)
 
         newsVC?.viewModel = newsViewModel
@@ -43,7 +43,7 @@ final class UIBuilderRootViewController {
     }
 
     func buildLoginViewController(loginService: UserLoginService, coordinator: AppCoordinator) -> LoginViewController {
-        let loginVC = UIStoryboard(name: NewsTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Login") as! LoginViewController
+        let loginVC = UIStoryboard(name: LoginViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Login") as! LoginViewController
         let loginViewModel = LoginViewModel(loginService: loginService, appCoordinator: coordinator)
 
         loginVC.viewModel = loginViewModel

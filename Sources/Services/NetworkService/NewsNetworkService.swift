@@ -1,7 +1,7 @@
 import UIKit
 import Alamofire
 
-final class ArticlesNetworkService {
+final class NewsNetworkService {
 
     //MARK: - Properties
 

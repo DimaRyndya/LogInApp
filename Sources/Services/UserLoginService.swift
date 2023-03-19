@@ -1,13 +1,17 @@
 import Foundation
 import KeychainSwift
 
-class UserLoginService {
+final class UserLoginService {
 
-    let keyChain = KeychainSwift()
+    // MARK: - Properties
+
+    private let keyChain = KeychainSwift()
 
     var isUserLoggedIn: Bool {
         keyChain.getBool("isLoggedIn") ?? false
     }
+
+    // MARK: - Public
 
     func saveChache(userName: String, password: String) {
         keyChain.set(userName, forKey: "username")

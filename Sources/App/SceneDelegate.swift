@@ -4,7 +4,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Properties
 
-    var appCoordinator: AppCoordinator?
+    private var appCoordinator: AppCoordinator?
 
     // MARK: - Application lifecycle
 

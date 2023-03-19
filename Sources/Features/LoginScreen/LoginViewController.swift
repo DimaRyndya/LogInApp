@@ -1,18 +1,24 @@
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
+
+    // MARK: - Properties
 
     var viewModel: LoginViewModel!
 
     // MARK: - IBOutlets
 
-    @IBOutlet weak var userNameTextField: UITextField!
-    @IBOutlet weak var userPasswordTextField: UITextField!
-    @IBOutlet weak var checkBoxButtonLabel: UIButton!
-    @IBOutlet weak var loginButtonLabel: UIButton!
-    @IBOutlet weak var privacyLabel: UITextView!
-    @IBOutlet weak var userNameValidationLabel: UILabel!
-    @IBOutlet weak var userPasswordValidationLabel: UILabel!
+    @IBOutlet private weak var userNameTextField: UITextField!
+    @IBOutlet private weak var userPasswordTextField: UITextField!
+    @IBOutlet private weak var checkBoxButtonLabel: UIButton!
+    @IBOutlet private weak var loginButtonLabel: UIButton!
+    @IBOutlet private weak var privacyLabel: UITextView!
+    @IBOutlet private weak var userNameValidationLabel: UILabel!
+    @IBOutlet private weak var userPasswordValidationLabel: UILabel!
+
+    // MARK: - Properties
+
+    static let storybordIdentifier = "LoginStoryboard"
 
     // MARK: - Lifecycle
 
@@ -29,6 +35,8 @@ class LoginViewController: UIViewController {
         privacyLabel.isUserInteractionEnabled = true
         userNameValidationLabel.isHidden = false
         userPasswordValidationLabel.isHidden = false
+        checkBoxButtonLabel.isSelected = false
+        loginButtonLabel.isEnabled = false
 
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
 
@@ -38,8 +46,7 @@ class LoginViewController: UIViewController {
         privacyLabel.delegate = self
         userNameTextField.delegate = self
         userPasswordTextField.delegate = self
-        checkBoxButtonLabel.isSelected = false
-        loginButtonLabel.isEnabled = false
+
 
     }
 
@@ -48,28 +55,22 @@ class LoginViewController: UIViewController {
     @IBAction func loginButtonTapped(_ sender: Any) {
         guard let userName = userNameTextField.text, let password = userPasswordTextField.text else { return }
         
-        viewModel.loginService.saveChache(userName: userName, password: password)
-
+        viewModel.saveUserAccount(userName: userName, password: password)
         viewModel.loginButtonTapped()
     }
 
     @IBAction func checkBoxButtonTapped(_ sender: Any) {
         checkBoxButtonLabel.isSelected = !checkBoxButtonLabel.isSelected
 
-        // TODO: Refactor
+        let imageName = checkBoxButtonLabel.isSelected ? "checkmark.square" : "square"
 
-        if checkBoxButtonLabel.isSelected {
-            checkBoxButtonLabel.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
-            checkLoginButtonState()
-        } else {
-            checkBoxButtonLabel.setImage(UIImage(systemName: "square"), for: .normal)
-            checkLoginButtonState()
-        }
+        checkBoxButtonLabel.setImage(UIImage(systemName: imageName), for: .normal)
+        checkLoginButtonState()
     }
 
     // MARK: - Helper methods
 
-    func getLinkFromText(text: String) -> NSMutableAttributedString {
+    private func getLinkFromText(text: String) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: text)
         let privacyRange = (attributedString.string as NSString).range(of: "Privacy Policy")
         let linkAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.blue, .underlineStyle: NSUnderlineStyle.single.rawValue]
@@ -82,12 +83,12 @@ class LoginViewController: UIViewController {
         return attributedString
     }
 
-    func checkLoginButtonState() {
+    private func checkLoginButtonState() {
         let shouldEnableLoginButton = checkBoxButtonLabel.isSelected && userNameValidationLabel.isHidden && userPasswordValidationLabel.isHidden
         loginButtonLabel.isEnabled = shouldEnableLoginButton
     }
 
-    @objc func handleTap() {
+    @objc private func handleTap() {
         view.endEditing(true)
     }
 }
@@ -95,6 +96,7 @@ class LoginViewController: UIViewController {
 // MARK: - UIText View Delegate methods
 
 extension LoginViewController: UITextViewDelegate {
+
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         UIApplication.shared.open(URL)
         return false
@@ -111,11 +113,7 @@ extension LoginViewController: UITextFieldDelegate {
 
         let updatedText = currentText.replacingCharacters(in: range, with: string)
 
-        if textField == userNameTextField {
-            validateUsername(updatedText)
-        } else {
-            validatePassword(updatedText)
-        }
+        textField == userNameTextField ? validateUsername(updatedText) : validatePassword(updatedText)
 
         if textField.isSecureTextEntry {
             textField.isSecureTextEntry = false
@@ -137,12 +135,12 @@ extension LoginViewController: UITextFieldDelegate {
 
     func validateUsername(_ username: String) {
         let shouldHideHint = username.count >= 6
+        
         userNameValidationLabel.isHidden = shouldHideHint
         checkLoginButtonState()
     }
 
     func validatePassword(_ password: String) {
-        // Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit
         let passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$"
         let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
         let shouldHidePasswordHint = passwordPredicate.evaluate(with: password)
