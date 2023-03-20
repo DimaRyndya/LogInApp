@@ -22,9 +22,6 @@ final class NewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
-        tableView.backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
-
         var nib = UINib(nibName: NewsTableViewCell.nibName, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: NewsTableViewCell.identifier)
         nib = UINib(nibName: LoadingCellConstants.nibName, bundle: nil)
@@ -32,37 +29,24 @@ final class NewsTableViewController: UITableViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = NewsTableViewController.tableViewRowHeight
 
-        viewModel.delegate = self
-        viewModel.loadArticles()
-        viewModel.state = .loading
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        tableView.reloadData()
+        viewModel.viewDidFinishLoading()
     }
 }
 
-//MARK: - MostEmailed ViewModel Delegate
+// MARK: - News ViewModel Delegate
 
 extension NewsTableViewController: NewsViewModelDelegate {
     func reloadUI(_ viewModel: NewsViewModel) {
-        viewModel.state = .foundArticles
         tableView.reloadData()
     }
 }
-
 
 // MARK: - Table view data source
 
 extension NewsTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch viewModel.state {
-        case .loading:
-            return 1
-        case .foundArticles:
-            return viewModel.articles.count
-        }
+        viewModel.setNumberOfSections()
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,9 +60,9 @@ extension NewsTableViewController {
             tableView.separatorStyle = .none
             return cell
 
-        case .foundArticles:
+        case .foundNews:
             let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as! NewsTableViewCell
-            let article = viewModel.articles[indexPath.row]
+            let article = viewModel.news[indexPath.row]
 
             tableView.separatorStyle = .singleLine
 

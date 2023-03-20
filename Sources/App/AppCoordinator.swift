@@ -2,13 +2,15 @@ import UIKit
 
 final class AppCoordinator {
 
+    // MARK: - Properties
+
     private let window: UIWindow
-    private let rootVCBuilder: UIBuilderRootViewController
-    private let loginService: UserLoginService
+    private let rootVCBuilder: UIBuilder
+    private let loginService: UserService
 
     // MARK: - Init
 
-    init(window: UIWindow, rootVCBuilder: UIBuilderRootViewController, loginService: UserLoginService) {
+    init(window: UIWindow, rootVCBuilder: UIBuilder, loginService: UserService) {
         self.window = window
         self.rootVCBuilder = rootVCBuilder
         self.loginService = loginService
@@ -25,8 +27,6 @@ final class AppCoordinator {
         let tabBarVC = rootVCBuilder.buildTabBarViewController(loginService: loginService, coordinator: self)
         setRoot(viewController: tabBarVC, animated: animated)
     }
-
-    // TODO: Refactor animation
 
     private func setRoot(viewController: UIViewController, animated: Bool) {
         if animated {

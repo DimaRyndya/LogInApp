@@ -1,7 +1,11 @@
 import UIKit
 import Alamofire
 
-final class NewsNetworkService {
+protocol NewsNetwork {
+    func fetchNews(completion: @escaping ([NewsModel]) -> ())
+}
+
+final class NewsNetworkService: NewsNetwork {
 
     //MARK: - Properties
 
@@ -17,11 +21,11 @@ final class NewsNetworkService {
 
     //MARK: - Public
 
-    func fetchArticles(completion: @escaping ([NewsModel]) -> ()) {
-        AF.request(baseURL + requestURL, parameters: parameters).responseDecodable(of: ArticleRequestResponse.self) { response in
+    func fetchNews(completion: @escaping ([NewsModel]) -> ()) {
+        AF.request(baseURL + requestURL, parameters: parameters).responseDecodable(of: NewsRequestResponse.self) { response in
             switch response.result {
             case .success(let result):
-                completion(result.articles)
+                completion(result.news)
             case .failure(let error):
                 debugPrint(error)
             }

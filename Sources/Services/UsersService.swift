@@ -1,7 +1,13 @@
 import Foundation
 import KeychainSwift
 
-final class UserLoginService {
+protocol UserServicing {
+    func saveChache(userName: String, password: String)
+    func getUserName() -> String
+    func deleteCache()
+}
+
+final class UserService: UserServicing {
 
     // MARK: - Properties
 

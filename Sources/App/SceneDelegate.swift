@@ -12,8 +12,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        let rootVCBuilder = UIBuilderRootViewController()
-        let loginService = UserLoginService()
+        let rootVCBuilder = UIBuilder()
+        let loginService = UserService()
 
         appCoordinator = AppCoordinator(window: window, rootVCBuilder: rootVCBuilder, loginService: loginService)
 

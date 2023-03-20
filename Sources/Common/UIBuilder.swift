@@ -1,10 +1,10 @@
 import UIKit
 
-final class UIBuilderRootViewController {
+final class UIBuilder {
 
     // MARK: - Public
 
-    func buildTabBarViewController(loginService: UserLoginService, coordinator: AppCoordinator) -> UITabBarController {
+    func buildTabBarViewController(loginService: UserServicing, coordinator: AppCoordinator) -> UITabBarController {
 
         // MARK: - Set up News Screen
 
@@ -14,6 +14,7 @@ final class UIBuilderRootViewController {
         let newsViewModel = NewsViewModel(networkService: newsNetworkService)
 
         newsVC?.viewModel = newsViewModel
+        newsVC?.viewModel.delegate = newsVC
 
         // MARK: - Set up Profile Screen
 
@@ -42,7 +43,7 @@ final class UIBuilderRootViewController {
         return tabBarVC
     }
 
-    func buildLoginViewController(loginService: UserLoginService, coordinator: AppCoordinator) -> LoginViewController {
+    func buildLoginViewController(loginService: UserServicing, coordinator: AppCoordinator) -> LoginViewController {
         let loginVC = UIStoryboard(name: LoginViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Login") as! LoginViewController
         let loginViewModel = LoginViewModel(loginService: loginService, appCoordinator: coordinator)
 

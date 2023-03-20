@@ -4,12 +4,12 @@ final class ProfileViewModel {
 
     // MARK: - Properties
     
-    private let loginService: UserLoginService
+    private let loginService: UserServicing
     private weak var appCoordinator: AppCoordinator?
 
     // MARK: - Init
 
-    init(loginService: UserLoginService, appCoordinator: AppCoordinator?) {
+    init(loginService: UserServicing, appCoordinator: AppCoordinator?) {
         self.loginService = loginService
         self.appCoordinator = appCoordinator
     }

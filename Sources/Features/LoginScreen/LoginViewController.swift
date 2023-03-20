@@ -54,9 +54,8 @@ final class LoginViewController: UIViewController {
 
     @IBAction func loginButtonTapped(_ sender: Any) {
         guard let userName = userNameTextField.text, let password = userPasswordTextField.text else { return }
-        
-        viewModel.saveUserAccount(userName: userName, password: password)
-        viewModel.loginButtonTapped()
+
+        viewModel.loginButtonTapped(save: userName, and: password)
     }
 
     @IBAction func checkBoxButtonTapped(_ sender: Any) {
@@ -65,7 +64,7 @@ final class LoginViewController: UIViewController {
         let imageName = checkBoxButtonLabel.isSelected ? "checkmark.square" : "square"
 
         checkBoxButtonLabel.setImage(UIImage(systemName: imageName), for: .normal)
-        checkLoginButtonState()
+        updateLoginButtonState()
     }
 
     // MARK: - Helper methods
@@ -83,7 +82,7 @@ final class LoginViewController: UIViewController {
         return attributedString
     }
 
-    private func checkLoginButtonState() {
+    private func updateLoginButtonState() {
         let shouldEnableLoginButton = checkBoxButtonLabel.isSelected && userNameValidationLabel.isHidden && userPasswordValidationLabel.isHidden
         loginButtonLabel.isEnabled = shouldEnableLoginButton
     }
@@ -113,7 +112,13 @@ extension LoginViewController: UITextFieldDelegate {
 
         let updatedText = currentText.replacingCharacters(in: range, with: string)
 
-        textField == userNameTextField ? validateUsername(updatedText) : validatePassword(updatedText)
+        if textField == userNameTextField {
+            userNameValidationLabel.isHidden = viewModel.isUserNameValid(updatedText)
+            updateLoginButtonState()
+        } else {
+            userPasswordValidationLabel.isHidden = viewModel.isPasswordValid(updatedText)
+            updateLoginButtonState()
+        }
 
         if textField.isSecureTextEntry {
             textField.isSecureTextEntry = false
@@ -129,23 +134,5 @@ extension LoginViewController: UITextFieldDelegate {
         userNameTextField.resignFirstResponder()
         userPasswordTextField.resignFirstResponder()
         return true
-    }
-
-    // MARK: - Validation methods
-
-    func validateUsername(_ username: String) {
-        let shouldHideHint = username.count >= 6
-        
-        userNameValidationLabel.isHidden = shouldHideHint
-        checkLoginButtonState()
-    }
-
-    func validatePassword(_ password: String) {
-        let passwordRegex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d).{8,}$"
-        let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordRegex)
-        let shouldHidePasswordHint = passwordPredicate.evaluate(with: password)
-
-        userPasswordValidationLabel.isHidden = shouldHidePasswordHint
-        checkLoginButtonState()
     }
 }
