@@ -19,6 +19,7 @@ final class LoginViewController: UIViewController {
     // MARK: - Properties
 
     static let storybordIdentifier = "LoginStoryboard"
+    static let identifier = "Login"
 
     // MARK: - Lifecycle
 

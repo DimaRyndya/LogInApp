@@ -6,7 +6,7 @@ struct NewsRequestResponse: Decodable {
         case news = "results"
     }
 
-    //MARK: - Properties
+    // MARK: - Properties
 
    var news: [NewsModel] = []
 }

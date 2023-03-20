@@ -8,7 +8,7 @@ final class UIBuilder {
 
         // MARK: - Set up News Screen
 
-        let newsVC = UIStoryboard(name: NewsTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "NewsTableView") as? NewsTableViewController
+        let newsVC = UIStoryboard(name: NewsTableViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: NewsTableViewController.identifier) as? NewsTableViewController
         let newsURL = "/svc/mostpopular/v2/emailed/30.json"
         let newsNetworkService = NewsNetworkService(requestURL: newsURL)
         let newsViewModel = NewsViewModel(networkService: newsNetworkService)
@@ -18,7 +18,7 @@ final class UIBuilder {
 
         // MARK: - Set up Profile Screen
 
-        let profileVC = UIStoryboard(name: ProfileViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Profile") as? ProfileViewController
+        let profileVC = UIStoryboard(name: ProfileViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: ProfileViewController.identifier) as? ProfileViewController
         let profileViewModel = ProfileViewModel(loginService: loginService, appCoordinator: coordinator)
 
         profileVC?.viewModel = profileViewModel
@@ -43,8 +43,10 @@ final class UIBuilder {
         return tabBarVC
     }
 
+    // MARK: - Set up Login Screen
+
     func buildLoginViewController(loginService: UserServicing, coordinator: AppCoordinator) -> LoginViewController {
-        let loginVC = UIStoryboard(name: LoginViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: "Login") as! LoginViewController
+        let loginVC = UIStoryboard(name: LoginViewController.storybordIdentifier, bundle: nil).instantiateViewController(withIdentifier: LoginViewController.identifier) as! LoginViewController
         let loginViewModel = LoginViewModel(loginService: loginService, appCoordinator: coordinator)
 
         loginVC.viewModel = loginViewModel

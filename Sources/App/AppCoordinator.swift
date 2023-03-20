@@ -6,7 +6,7 @@ final class AppCoordinator {
 
     private let window: UIWindow
     private let rootVCBuilder: UIBuilder
-    private let loginService: UserService
+    private let loginService: UserServicing
 
     // MARK: - Init
 

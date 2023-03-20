@@ -42,7 +42,7 @@ final class NewsViewModel {
         }
     }
 
-    func setNumberOfSections() -> Int {
+    func getNumberOfSections() -> Int {
         switch state {
         case .loading:
             return 1

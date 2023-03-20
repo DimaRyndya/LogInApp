@@ -10,6 +10,7 @@ final class ProfileViewController: UIViewController {
     // MARK: - Properties
 
     static let storybordIdentifier = "ProfileStoryboard"
+    static let identifier = "Profile"
 
     var viewModel: ProfileViewModel!
 

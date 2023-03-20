@@ -15,6 +15,7 @@ final class NewsTableViewController: UITableViewController {
     var viewModel: NewsViewModel!
 
     static let storybordIdentifier = "NewsStoryboard"
+    static let identifier = "NewsTableView"
     static let tableViewRowHeight = 44.0
 
     // MARK: - Lifecycle
@@ -46,7 +47,7 @@ extension NewsTableViewController: NewsViewModelDelegate {
 extension NewsTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.setNumberOfSections()
+        viewModel.getNumberOfSections()
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
