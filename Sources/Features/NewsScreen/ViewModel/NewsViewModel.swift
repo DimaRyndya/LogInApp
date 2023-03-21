@@ -1,7 +1,8 @@
 import Foundation
 
 protocol NewsViewModelDelegate: AnyObject {
-    func reloadUI(_ viewModel: NewsViewModel)
+    func reloadUI()
+    func showAlert()
 }
 
 final class NewsViewModel {
@@ -36,9 +37,16 @@ final class NewsViewModel {
     func loadNews() {
         networkService.fetchNews { [weak self] response in
             guard let self else { return }
-            self.news = response
-            self.state = .foundNews
-            self.delegate?.reloadUI(self)
+
+            switch response {
+            case .success(let result):
+                self.news = result
+                self.state = .foundNews
+                self.delegate?.reloadUI()
+
+            case .failure(_):
+                self.delegate?.showAlert()
+            }
         }
     }
 

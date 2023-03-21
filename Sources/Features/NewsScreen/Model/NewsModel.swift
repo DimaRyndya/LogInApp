@@ -1,4 +1,4 @@
-final class NewsModel {
+struct NewsModel {
 
     // MARK: - Properties
 

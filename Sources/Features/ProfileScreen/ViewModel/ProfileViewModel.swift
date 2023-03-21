@@ -4,13 +4,13 @@ final class ProfileViewModel {
 
     // MARK: - Properties
     
-    private let loginService: UserServicing
+    private let usersService: UserServicing
     private weak var appCoordinator: AppCoordinator?
 
     // MARK: - Init
 
-    init(loginService: UserServicing, appCoordinator: AppCoordinator?) {
-        self.loginService = loginService
+    init(usersService: UserServicing, appCoordinator: AppCoordinator?) {
+        self.usersService = usersService
         self.appCoordinator = appCoordinator
     }
 
@@ -18,11 +18,11 @@ final class ProfileViewModel {
 
     func logOutButtonTapped() {
         appCoordinator?.startLoginFlow(animated: true)
-        loginService.deleteCache()
+        usersService.deleteCache()
     }
 
     func viewLoaded() -> String{
-        loginService.getUserName()
+        usersService.getUserName()
     }
     
 }

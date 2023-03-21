@@ -12,7 +12,7 @@ final class LoginViewController: UIViewController {
     @IBOutlet private weak var userPasswordTextField: UITextField!
     @IBOutlet private weak var checkBoxButton: UIButton!
     @IBOutlet private weak var loginButton: UIButton!
-    @IBOutlet private weak var privacyLabel: UITextView!
+    @IBOutlet private weak var privacyTextView: UITextView!
     @IBOutlet private weak var userNameValidationLabel: UILabel!
     @IBOutlet private weak var userPasswordValidationLabel: UILabel!
 
@@ -30,23 +30,20 @@ final class LoginViewController: UIViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
 
-        privacyLabel.attributedText = getLinkFromText(text: privacyLabel.text!)
-        privacyLabel.isUserInteractionEnabled = true
-        userNameValidationLabel.isHidden = true
-        userPasswordValidationLabel.isHidden = true
-        checkBoxButton.isSelected = false
-        loginButton.isEnabled = false
+        let privacy = viewModel.privacyPolicy
 
-        privacyLabel.delegate = self
+        privacyTextView.attributedText = getLinkFromText(
+            text: privacy.text,
+            privacyText: privacy.privacyText,
+            url: privacy.url ?? URL(fileReferenceLiteralResourceName: ""))
+        privacyTextView.delegate = self
         userNameTextField.delegate = self
         userPasswordTextField.delegate = self
 
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
 
-        userNameTextField.attributedPlaceholder = NSAttributedString(string: userNameTextField.placeholder!, attributes: attributes)
-        userPasswordTextField.attributedPlaceholder = NSAttributedString(string: userPasswordTextField.placeholder!, attributes: attributes)
-
-
+        userNameTextField.attributedPlaceholder = NSAttributedString(string: userNameTextField.placeholder ?? "", attributes: attributes)
+        userPasswordTextField.attributedPlaceholder = NSAttributedString(string: userPasswordTextField.placeholder ?? "", attributes: attributes)
     }
 
     // MARK: - IBAction methods
@@ -68,15 +65,13 @@ final class LoginViewController: UIViewController {
 
     // MARK: - Helper methods
 
-    private func getLinkFromText(text: String) -> NSMutableAttributedString {
+    private func getLinkFromText(text: String, privacyText: String, url: URL) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: text)
-        let privacyRange = (attributedString.string as NSString).range(of: "Privacy Policy")
+        let privacyRange = (attributedString.string as NSString).range(of: privacyText)
         let linkAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.blue, .underlineStyle: NSUnderlineStyle.single.rawValue]
+        
         attributedString.addAttributes(linkAttributes, range: privacyRange)
-        let url = URL(string: "https://redwing-studio.com/")
         attributedString.addAttribute(.link, value: url as Any, range: privacyRange)
-
-        privacyLabel.attributedText = attributedString
 
         return attributedString
     }
@@ -129,14 +124,7 @@ extension LoginViewController: UITextFieldDelegate {
             }
         }
 
-        if textField.isSecureTextEntry {
-            textField.isSecureTextEntry = false
-            textField.text?.replaceSubrange(range, with: string)
-            textField.isSecureTextEntry = true
-            return false
-        } else {
-            return true
-        }
+        return true
     }
 
     func textFieldShouldClear(_ textField: UITextField) -> Bool {

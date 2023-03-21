@@ -17,10 +17,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Acd-XW-Gfu">
-                                <rect key="frame" x="24.5" y="184.5" width="326.5" height="298"/>
+                                <rect key="frame" x="24.5" y="221" width="326.5" height="225"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="A0f-2v-si4">
-                                        <rect key="frame" x="45" y="0.0" width="236" height="84.5"/>
+                                        <rect key="frame" x="45" y="0.0" width="236" height="61"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zrN-u9-ujO">
                                                 <rect key="frame" x="0.0" y="0.0" width="70" height="17"/>
@@ -38,8 +38,8 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" textContentType="username"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username must be at least 6 characters long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkr-Og-gNX">
-                                                <rect key="frame" x="0.0" y="71" width="236" height="13.5"/>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username must be at least 6 characters long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkr-Og-gNX">
+                                                <rect key="frame" x="0.0" y="61" width="236" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" systemColor="systemPinkColor"/>
                                                 <nil key="highlightedColor"/>
@@ -50,7 +50,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Yap-R5-AC6">
-                                        <rect key="frame" x="45" y="94.5" width="236" height="110.5"/>
+                                        <rect key="frame" x="45" y="71" width="236" height="61"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgk-pX-LaK">
                                                 <rect key="frame" x="0.0" y="0.0" width="66.5" height="17"/>
@@ -68,8 +68,8 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4S-tK-yYV">
-                                                <rect key="frame" x="0.0" y="71" width="236" height="39.5"/>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one digit" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4S-tK-yYV">
+                                                <rect key="frame" x="0.0" y="61" width="636.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                 <nil key="highlightedColor"/>
@@ -79,8 +79,8 @@
                                             <constraint firstAttribute="width" constant="236" id="RwL-rY-x1W"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mk6-tQ-SMl">
-                                        <rect key="frame" x="113" y="215" width="100" height="40"/>
+                                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mk6-tQ-SMl">
+                                        <rect key="frame" x="113" y="142" width="100" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="6Ts-lb-G7K"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="sNo-sK-Xpa"/>
@@ -94,7 +94,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="SM9-61-3nf">
-                                        <rect key="frame" x="0.0" y="265" width="326.5" height="33"/>
+                                        <rect key="frame" x="0.0" y="192" width="326.5" height="33"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2P8-hc-6an">
                                                 <rect key="frame" x="0.0" y="0.0" width="19.5" height="33"/>
@@ -127,7 +127,7 @@
                     <connections>
                         <outlet property="checkBoxButton" destination="2P8-hc-6an" id="OG8-Zo-vTR"/>
                         <outlet property="loginButton" destination="Mk6-tQ-SMl" id="dsS-Iv-Hyo"/>
-                        <outlet property="privacyLabel" destination="eE7-ny-fy7" id="kfg-NC-KAR"/>
+                        <outlet property="privacyTextView" destination="eE7-ny-fy7" id="kfg-NC-KAR"/>
                         <outlet property="userNameTextField" destination="Ui8-Oh-SPL" id="pQc-22-obA"/>
                         <outlet property="userNameValidationLabel" destination="Wkr-Og-gNX" id="qK7-vv-BD3"/>
                         <outlet property="userPasswordTextField" destination="ndx-gl-Gl5" id="MNR-aB-v7z"/>

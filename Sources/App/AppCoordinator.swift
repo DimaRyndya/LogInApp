@@ -6,25 +6,25 @@ final class AppCoordinator {
 
     private let window: UIWindow
     private let rootVCBuilder: UIBuilder
-    private let loginService: UserServicing
+    private let usersService: UserServicing
 
     // MARK: - Init
 
-    init(window: UIWindow, rootVCBuilder: UIBuilder, loginService: UserService) {
+    init(window: UIWindow, rootVCBuilder: UIBuilder, usersService: UserServicing) {
         self.window = window
         self.rootVCBuilder = rootVCBuilder
-        self.loginService = loginService
+        self.usersService = usersService
     }
 
     // MARK: - Public
 
     func startLoginFlow(animated: Bool) {
-        let loginVC = rootVCBuilder.buildLoginViewController(loginService: loginService, coordinator: self)
+        let loginVC = rootVCBuilder.buildLoginViewController(usersService: usersService, coordinator: self) ?? LoginViewController()
         setRoot(viewController: loginVC, animated: animated)
     }
 
     func startMainFlow(animated: Bool) {
-        let tabBarVC = rootVCBuilder.buildTabBarViewController(loginService: loginService, coordinator: self)
+        let tabBarVC = rootVCBuilder.buildTabBarViewController(usersService: usersService, coordinator: self)
         setRoot(viewController: tabBarVC, animated: animated)
     }
 

@@ -4,13 +4,17 @@ final class LoginViewModel {
 
     // MARK: - Properties
 
-    private let loginService: UserServicing
+    private let usersService: UserServicing
     private weak var appCoordinator: AppCoordinator?
+
+    var privacyPolicy: (text: String, privacyText: String, url: URL?) {
+        ("By registering, you agree to the Privacy Policy", "Privacy Policy", URL(string: "https://redwing-studio.com/"))
+    }
 
     // MARK: - Init
 
-    init(loginService: UserServicing, appCoordinator: AppCoordinator?) {
-        self.loginService = loginService
+    init(usersService: UserServicing, appCoordinator: AppCoordinator?) {
+        self.usersService = usersService
         self.appCoordinator = appCoordinator
     }
 
@@ -22,7 +26,7 @@ final class LoginViewModel {
     }
 
     func saveUserAccount(userName: String, password: String) {
-        loginService.saveChache(userName: userName, password: password)
+        usersService.saveCache(userName: userName, password: password)
     }
 
     // MARK: - Validation methods

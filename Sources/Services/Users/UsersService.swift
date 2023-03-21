@@ -2,7 +2,8 @@ import Foundation
 import KeychainSwift
 
 protocol UserServicing {
-    func saveChache(userName: String, password: String)
+    var isUserLoggedIn: Bool { get }
+    func saveCache(userName: String, password: String)
     func getUserName() -> String
     func deleteCache()
 }
@@ -19,7 +20,7 @@ final class UserService: UserServicing {
 
     // MARK: - Public
 
-    func saveChache(userName: String, password: String) {
+    func saveCache(userName: String, password: String) {
         keyChain.set(userName, forKey: "username")
         keyChain.set(password, forKey: "password")
         keyChain.set(true, forKey: "isLoggedIn")

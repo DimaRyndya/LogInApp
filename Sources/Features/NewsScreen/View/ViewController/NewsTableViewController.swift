@@ -37,8 +37,16 @@ final class NewsTableViewController: UITableViewController {
 // MARK: - News ViewModel Delegate
 
 extension NewsTableViewController: NewsViewModelDelegate {
-    func reloadUI(_ viewModel: NewsViewModel) {
+
+    func reloadUI() {
         tableView.reloadData()
+    }
+
+    func showAlert() {
+        let alertController = UIAlertController(title: "Error", message: "Something went wrong", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true)
     }
 }
 
@@ -54,23 +62,23 @@ extension NewsTableViewController {
         switch viewModel.state {
         case .loading:
             let cell = tableView.dequeueReusableCell(withIdentifier: LoadingCellConstants.identifier, for: indexPath)
-            let spinner = cell.viewWithTag(LoadingCellConstants.spinnerTag) as! UIActivityIndicatorView
+            let spinner = cell.viewWithTag(LoadingCellConstants.spinnerTag) as? UIActivityIndicatorView
 
-            spinner.startAnimating()
+            spinner?.startAnimating()
 
             tableView.separatorStyle = .none
             cell.selectionStyle = .none
             return cell
 
         case .foundNews:
-            let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as! NewsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as? NewsTableViewCell
             let article = viewModel.news[indexPath.row]
 
             tableView.separatorStyle = .singleLine
 
-            cell.selectionStyle = .none
-            cell.configure(with: article)
-            return cell
+            cell?.selectionStyle = .none
+            cell?.configure(with: article)
+            return cell ?? UITableViewCell()
         }
     }
 }

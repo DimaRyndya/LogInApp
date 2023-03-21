@@ -2,7 +2,7 @@ import UIKit
 import Alamofire
 
 protocol NewsNetwork {
-    func fetchNews(completion: @escaping ([NewsModel]) -> ())
+    func fetchNews(completion: @escaping (Result<[NewsModel], Error>) -> ())
 }
 
 final class NewsNetworkService: NewsNetwork {
@@ -19,15 +19,16 @@ final class NewsNetworkService: NewsNetwork {
         self.requestURL = requestURL
     }
 
-    // MARK: - Public
+    // MARK: - Fetch Request
 
-    func fetchNews(completion: @escaping ([NewsModel]) -> ()) {
+    func fetchNews(completion: @escaping (Result<[NewsModel], Error>) -> ()) {
         AF.request(baseURL + requestURL, parameters: parameters).responseDecodable(of: NewsRequestResponse.self) { response in
             switch response.result {
             case .success(let result):
-                completion(result.news)
+                completion(.success(result.news) )
             case .failure(let error):
-                debugPrint(error)
+                completion(.failure(error))
+                print(error)
             }
         }
     }

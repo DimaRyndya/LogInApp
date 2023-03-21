@@ -13,11 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         let rootVCBuilder = UIBuilder()
-        let loginService = UserService()
+        let usersService: UserServicing = UserService()
 
-        appCoordinator = AppCoordinator(window: window, rootVCBuilder: rootVCBuilder, loginService: loginService)
+        appCoordinator = AppCoordinator(window: window, rootVCBuilder: rootVCBuilder, usersService: usersService)
 
-        if loginService.isUserLoggedIn {
+        if usersService.isUserLoggedIn {
             appCoordinator?.startMainFlow(animated: false)
         } else {
             appCoordinator?.startLoginFlow(animated: false)
