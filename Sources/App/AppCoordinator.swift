@@ -28,6 +28,8 @@ final class AppCoordinator {
         setRoot(viewController: tabBarVC, animated: animated)
     }
 
+    // MARK: - Private
+
     private func setRoot(viewController: UIViewController, animated: Bool) {
         if animated {
             UIView.transition(with: window, duration: 0.5, options: [.transitionCurlDown], animations: {

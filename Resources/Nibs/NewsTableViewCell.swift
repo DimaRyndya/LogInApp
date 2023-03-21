@@ -17,7 +17,6 @@ final class NewsTableViewCell: UITableViewCell {
     func configure(with article: NewsModel) {
         articleTitleLabel.text = article.title
         articleTextLabel.text = article.description
-        backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
     }
 
 }

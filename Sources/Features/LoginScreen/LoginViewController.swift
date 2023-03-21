@@ -37,14 +37,16 @@ final class LoginViewController: UIViewController {
         checkBoxButton.isSelected = false
         loginButton.isEnabled = false
 
+        privacyLabel.delegate = self
+        userNameTextField.delegate = self
+        userPasswordTextField.delegate = self
+
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
 
         userNameTextField.attributedPlaceholder = NSAttributedString(string: userNameTextField.placeholder!, attributes: attributes)
         userPasswordTextField.attributedPlaceholder = NSAttributedString(string: userPasswordTextField.placeholder!, attributes: attributes)
 
-        privacyLabel.delegate = self
-        userNameTextField.delegate = self
-        userPasswordTextField.delegate = self
+
     }
 
     // MARK: - IBAction methods
