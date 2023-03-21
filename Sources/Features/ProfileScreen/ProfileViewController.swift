@@ -5,7 +5,6 @@ final class ProfileViewController: UIViewController {
     // MARK: - Outlets
 
     @IBOutlet private weak var userNameLabel: UILabel!
-    @IBOutlet private weak var logOutButtonLabel: UIButton!
 
     // MARK: - Properties
 
@@ -18,8 +17,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
+
         userNameLabel.text = viewModel.viewLoaded()
     }
 

@@ -10,8 +10,8 @@ final class LoginViewController: UIViewController {
 
     @IBOutlet private weak var userNameTextField: UITextField!
     @IBOutlet private weak var userPasswordTextField: UITextField!
-    @IBOutlet private weak var checkBoxButtonLabel: UIButton!
-    @IBOutlet private weak var loginButtonLabel: UIButton!
+    @IBOutlet private weak var checkBoxButton: UIButton!
+    @IBOutlet private weak var loginButton: UIButton!
     @IBOutlet private weak var privacyLabel: UITextView!
     @IBOutlet private weak var userNameValidationLabel: UILabel!
     @IBOutlet private weak var userPasswordValidationLabel: UILabel!
@@ -30,14 +30,12 @@ final class LoginViewController: UIViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
 
-        view.backgroundColor = UIColor(red: 221 / 255, green: 254 / 255, blue: 221 / 255, alpha: 1)
-
         privacyLabel.attributedText = getLinkFromText(text: privacyLabel.text!)
         privacyLabel.isUserInteractionEnabled = true
-        userNameValidationLabel.isHidden = false
-        userPasswordValidationLabel.isHidden = false
-        checkBoxButtonLabel.isSelected = false
-        loginButtonLabel.isEnabled = false
+        userNameValidationLabel.isHidden = true
+        userPasswordValidationLabel.isHidden = true
+        checkBoxButton.isSelected = false
+        loginButton.isEnabled = false
 
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.gray]
 
@@ -47,8 +45,6 @@ final class LoginViewController: UIViewController {
         privacyLabel.delegate = self
         userNameTextField.delegate = self
         userPasswordTextField.delegate = self
-
-
     }
 
     // MARK: - IBAction methods
@@ -60,11 +56,11 @@ final class LoginViewController: UIViewController {
     }
 
     @IBAction func checkBoxButtonTapped(_ sender: Any) {
-        checkBoxButtonLabel.isSelected = !checkBoxButtonLabel.isSelected
+        checkBoxButton.isSelected = !checkBoxButton.isSelected
 
-        let imageName = checkBoxButtonLabel.isSelected ? "checkmark.square" : "square"
+        let imageName = checkBoxButton.isSelected ? "checkmark.square" : "square"
 
-        checkBoxButtonLabel.setImage(UIImage(systemName: imageName), for: .normal)
+        checkBoxButton.setImage(UIImage(systemName: imageName), for: .normal)
         updateLoginButtonState()
     }
 
@@ -84,8 +80,10 @@ final class LoginViewController: UIViewController {
     }
 
     private func updateLoginButtonState() {
-        let shouldEnableLoginButton = checkBoxButtonLabel.isSelected && userNameValidationLabel.isHidden && userPasswordValidationLabel.isHidden
-        loginButtonLabel.isEnabled = shouldEnableLoginButton
+        guard let userName = userNameTextField.text, let password = userPasswordTextField.text else { return }
+
+        let shouldEnableLoginButton = checkBoxButton.isSelected && userNameValidationLabel.isHidden && userPasswordValidationLabel.isHidden && !userName.isEmpty && !password.isEmpty
+        loginButton.isEnabled = shouldEnableLoginButton
     }
 
     @objc private func handleTap() {
@@ -114,11 +112,19 @@ extension LoginViewController: UITextFieldDelegate {
         let updatedText = currentText.replacingCharacters(in: range, with: string)
 
         if textField == userNameTextField {
-            userNameValidationLabel.isHidden = viewModel.isUserNameValid(updatedText)
-            updateLoginButtonState()
+            if updatedText.isEmpty {
+                userNameValidationLabel.isHidden = true
+            } else {
+                userNameValidationLabel.isHidden = viewModel.isUserNameValid(updatedText)
+                updateLoginButtonState()
+            }
         } else {
-            userPasswordValidationLabel.isHidden = viewModel.isPasswordValid(updatedText)
-            updateLoginButtonState()
+            if updatedText.isEmpty {
+                userPasswordValidationLabel.isHidden = true
+            } else {
+                userPasswordValidationLabel.isHidden = viewModel.isPasswordValid(updatedText)
+                updateLoginButtonState()
+            }
         }
 
         if textField.isSecureTextEntry {
@@ -131,9 +137,23 @@ extension LoginViewController: UITextFieldDelegate {
         }
     }
 
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textField == userNameTextField {
+            userNameValidationLabel.isHidden = true
+            return true
+        } else {
+            userPasswordValidationLabel.isHidden = true
+            return true
+        }
+    }
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        userNameTextField.resignFirstResponder()
-        userPasswordTextField.resignFirstResponder()
-        return true
+        if textField == userNameTextField {
+            userNameTextField.resignFirstResponder()
+            return true
+        } else {
+            userPasswordTextField.resignFirstResponder()
+            return true
+        }
     }
 }

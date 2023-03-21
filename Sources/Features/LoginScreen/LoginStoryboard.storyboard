@@ -117,7 +117,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JZi-ZF-1wN"/>
-                        <color key="backgroundColor" systemColor="systemMintColor"/>
+                        <color key="backgroundColor" red="0.8666666666666667" green="0.99607843137254903" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Acd-XW-Gfu" firstAttribute="centerX" secondItem="TC1-h8-ZAD" secondAttribute="centerX" id="f8g-9H-tli"/>
                             <constraint firstItem="Acd-XW-Gfu" firstAttribute="centerY" secondItem="TC1-h8-ZAD" secondAttribute="centerY" id="pak-UW-6BA"/>
@@ -125,8 +125,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="PP4-uz-hsX"/>
                     <connections>
-                        <outlet property="checkBoxButtonLabel" destination="2P8-hc-6an" id="OG8-Zo-vTR"/>
-                        <outlet property="loginButtonLabel" destination="Mk6-tQ-SMl" id="dsS-Iv-Hyo"/>
+                        <outlet property="checkBoxButton" destination="2P8-hc-6an" id="OG8-Zo-vTR"/>
+                        <outlet property="loginButton" destination="Mk6-tQ-SMl" id="dsS-Iv-Hyo"/>
                         <outlet property="privacyLabel" destination="eE7-ny-fy7" id="kfg-NC-KAR"/>
                         <outlet property="userNameTextField" destination="Ui8-Oh-SPL" id="pQc-22-obA"/>
                         <outlet property="userNameValidationLabel" destination="Wkr-Og-gNX" id="qK7-vv-BD3"/>
@@ -143,9 +143,6 @@
         <image name="square" catalog="system" width="128" height="114"/>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemMintColor">
-            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

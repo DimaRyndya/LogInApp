@@ -1,4 +1,4 @@
-import UIKit
+import Foundation
 
 protocol NewsViewModelDelegate: AnyObject {
     func reloadUI(_ viewModel: NewsViewModel)

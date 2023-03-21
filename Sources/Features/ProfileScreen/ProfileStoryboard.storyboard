@@ -54,14 +54,13 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.8666666666666667" green="0.99607843137254903" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ySr-eg-jna" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="22t-sv-dlv"/>
                             <constraint firstItem="ySr-eg-jna" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="5lv-MW-K4d"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="logOutButtonLabel" destination="HeN-Ni-I6q" id="3bf-al-FGa"/>
                         <outlet property="userNameLabel" destination="4FB-m2-VIu" id="uld-4K-N5Q"/>
                     </connections>
                 </viewController>
@@ -71,9 +70,6 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

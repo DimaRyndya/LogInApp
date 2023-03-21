@@ -59,6 +59,7 @@ extension NewsTableViewController {
             spinner.startAnimating()
 
             tableView.separatorStyle = .none
+            cell.selectionStyle = .none
             return cell
 
         case .foundNews:
@@ -67,17 +68,10 @@ extension NewsTableViewController {
 
             tableView.separatorStyle = .singleLine
 
+            cell.selectionStyle = .none
             cell.configure(with: article)
             return cell
         }
     }
 }
 
-// MARK: - Table view delegate methods
-
-extension NewsTableViewController {
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-}
