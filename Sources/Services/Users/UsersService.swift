@@ -9,28 +9,28 @@ protocol UserServicing {
 }
 
 final class UserService: UserServicing {
-
+    
     // MARK: - Properties
-
+    
     private let keyChain = KeychainSwift()
-
+    
     var isUserLoggedIn: Bool {
         keyChain.getBool("isLoggedIn") ?? false
     }
-
+    
     // MARK: - Public
-
+    
     func saveCache(userName: String, password: String) {
         keyChain.set(userName, forKey: "username")
         keyChain.set(password, forKey: "password")
         keyChain.set(true, forKey: "isLoggedIn")
     }
-
+    
     func getUserName() -> String {
         let userName = keyChain.get("username") ?? ""
         return userName
     }
-
+    
     func deleteCache() {
         keyChain.delete("isLoggedIn")
         keyChain.delete("username")

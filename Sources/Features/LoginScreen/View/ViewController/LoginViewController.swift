@@ -30,12 +30,12 @@ final class LoginViewController: UIViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
 
-        let privacy = viewModel.privacyPolicy
+        let privacyText = viewModel.privacyPolicy
 
         privacyTextView.attributedText = getLinkFromText(
-            text: privacy.text,
-            privacyText: privacy.privacyText,
-            url: privacy.url ?? URL(fileReferenceLiteralResourceName: ""))
+            text: privacyText.text,
+            privacyText: privacyText.privacyText,
+            url: privacyText.url)
         privacyTextView.delegate = self
         userNameTextField.delegate = self
         userPasswordTextField.delegate = self
@@ -51,7 +51,7 @@ final class LoginViewController: UIViewController {
     @IBAction func loginButtonTapped(_ sender: Any) {
         guard let userName = userNameTextField.text, let password = userPasswordTextField.text else { return }
 
-        viewModel.loginButtonTapped(save: userName, and: password)
+        viewModel.loginButtonTapped(userName, password)
     }
 
     @IBAction func checkBoxButtonTapped(_ sender: Any) {
@@ -80,6 +80,7 @@ final class LoginViewController: UIViewController {
         guard let userName = userNameTextField.text, let password = userPasswordTextField.text else { return }
 
         let shouldEnableLoginButton = checkBoxButton.isSelected && userNameValidationLabel.isHidden && userPasswordValidationLabel.isHidden && !userName.isEmpty && !password.isEmpty
+        
         loginButton.isEnabled = shouldEnableLoginButton
     }
 
@@ -124,7 +125,15 @@ extension LoginViewController: UITextFieldDelegate {
             }
         }
 
-        return true
+        /// ok for now
+        if textField.isSecureTextEntry {
+            textField.isSecureTextEntry = false
+            textField.text?.replaceSubrange(range, with: string)
+            textField.isSecureTextEntry = true
+            return false
+        } else {
+            return true
+        }
     }
 
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
