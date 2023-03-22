@@ -139,9 +139,13 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         if textField == userNameTextField {
             userNameValidationLabel.isHidden = true
+            userNameTextField.text = ""
+            updateLoginButtonState()
             return true
         } else {
             userPasswordValidationLabel.isHidden = true
+            userPasswordTextField.text = ""
+            updateLoginButtonState()
             return true
         }
     }
